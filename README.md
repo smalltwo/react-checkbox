@@ -2,7 +2,7 @@
 
 React Checkbox
 
-> A React checkbox with support for the indetermediate state.
+> A React checkbox with support for the indeterminate state.
 
 ## Install
 
@@ -26,7 +26,7 @@ React.render(
 ## Props
 
  * `checked`: Boolean/Null - whether the checkbox should be checked or not. If `supportIntermediate` is true, the `checked` property can also have another value, which should equal to `indeterminateValue` prop (which defaults to null)
- * `supportIndeterminate`: Boolean - whether the checkbox should support the indetermediate state. Defaults to false.
+ * `supportIndeterminate`: Boolean - whether the checkbox should support the indeterminate state. Defaults to false.
  * `indeterminateValue` - the value for `checked` that should render the checkbox as indeterminate. Defaults to null
  * `stopPropagation`: Boolean - whether to stop `change` event propagation for the checkbox. Defaults to true.
  * `onChange`: Function(value, event) - The function to call when the state of the checkbox changes. **NOTE:** Unlike `<input type="checkbox" />`, first param is the new value, and second param is the event object.
