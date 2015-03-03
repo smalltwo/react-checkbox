@@ -9,7 +9,7 @@
     "build-style": "webpack --progress --colors --config build-style.config.js",
     "dist": "webpack --progress --colors --config dist.config.js",
     "dist.min": "webpack --progress --colors --optimize-minimize --optimize-occurence-order --optimize-dedupe --config dist.min.config.js",
-    "build": "npm run lib && npm run dist && npm run dist.min && npm run build-style",
+    "build": "npm run lib && npm run dist && npm run dist.min",
     "serve": "http-server -p 9091",
     "dev": "webpack-dev-server --progress --colors --port 9090 --content-base http://localhost:9091"
   },
@@ -25,9 +25,11 @@
     "webpack": "^1.4.13",
     "webpack-dev-server": "^1.6.6"
   },
+  "peerDependencies": {
+    "react": ">=0.12.0"
+  },
   "dependencies": {
     "object-assign": "^2.0.0",
-    "react": "^0.12.1"
   },
   "repository": {
     "type": "git",

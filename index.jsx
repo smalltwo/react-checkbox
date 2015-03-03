@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react')
-var Check  = require('./src')
+var Check = require('./src')
 
 var checked = null
 
@@ -42,7 +42,7 @@ var App = React.createClass({
     render: function() {
         return (
             <form className="App" style={{padding: 20}} onClick={this.onClick}>
-                <Check supportIndeterminate={true} checked={checked} onChange={this.onChange}/>checked
+                <Check xsupportIndeterminate={true} checked={checked} onChange={this.onChange}/>checked
                 <input type="checkbox" checked={checked} onChange={this.onChange}/>
             </form>
         )
