@@ -46,7 +46,7 @@ var App = React.createClass({
         }
         return (
             <form className="App" style={{padding: 20}} onClick={this.onClick}>
-                <Check onFocus={focus} supportIndeterminate={true} checked={checked} onChange={this.onChange}/>checked
+                <Check onFocus={focus} supportIndeterminate={true} defaultChecked={checked} xonChange={this.onChange}/>checked
                 <input type="checkbox" checked={checked} onChange={this.onChange}/>
             </form>
         )
