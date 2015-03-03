@@ -62,11 +62,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return Object.prototype.hasOwnProperty.call(obj, prop)
 	}
 
+	var DISPLAY_NAME = 'ReactCheckbox'
+
 	function emptyFn(){}
 
 	module.exports = React.createClass({
 
-	    displayName: 'ReactCheckbox',
+	    displayName: DISPLAY_NAME,
 
 	    propTypes: {
 	        nextValue: React.PropTypes.func,
@@ -81,9 +83,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    getDefaultProps: function() {
 	        return {
-	            stopPropagation     : true,
-	            indeterminateValue  : null,
-	            supportIndeterminate: false,
+	            'data-display-name' : DISPLAY_NAME,
+
+	            stopChangePropagation: false,
+	            indeterminateValue   : null,
+	            supportIndeterminate : false,
+
+	            defaultStyle: null,
+	            defaultFocusedStyle: null,
+	            focusedStyle: null,
 
 	            nextValue: function(oldValue, props) {
 	                return oldValue === props.indeterminateValue?
@@ -130,6 +138,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 
 	    isIndeterminate: function() {
+
 	        var props         = this.props
 	        var checked       = this.getValue()
 	        var indeterminate = props.supportIndeterminate && checked === props.indeterminateValue
@@ -143,9 +152,44 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        assign(props, thisProps)
 
+	        props.style    = this.prepareStyle(props, state)
 	        props.onChange = this.handleChange
+	        props.onFocus  = this.handleFocus
+	        props.onBlur  = this.handleBlur
 
 	        return props
+	    },
+
+	    prepareStyle: function(props) {
+	        var defaultFocusedStyle
+	        var focusedStyle
+
+	        if (this.state.focused){
+	            defaultFocusedStyle = props.defaultFocusedStyle
+	            focusedStyle = props.focusedStyle
+	        }
+
+	        var style = assign({}, props.defaultStyle, defaultFocusedStyle, props.style, focusedStyle)
+
+	        ;(props.onStyleReady || emptyFn)(style)
+
+	        return style
+	    },
+
+	    handleFocus: function(event) {
+	        this.setState({
+	            focused: true
+	        })
+
+	        ;(this.props.onFocus || emptyFn)(event)
+	    },
+
+	    handleBlur: function(event) {
+	        this.setState({
+	            focused: false
+	        })
+
+	        ;(this.props.onBlur || emptyFn)(event)
 	    },
 
 	    getValue: function() {
@@ -169,13 +213,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var oldValue = this.getValue()
 
 	            if (typeof props.nextValue == 'function'){
-	                value = props.nextValue(oldValue,
-	                //  {
-	                //     checked           : value,
-	                //     oldValue          : oldValue,
-	                //     indeterminateValue: props.indeterminateValue
-	                // },
-	                this.props)
+	                value = props.nextValue(oldValue, this.props)
 	            }
 	        }
 
@@ -187,7 +225,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            })
 	        }
 
-	        props.stopPropagation && event.stopPropagation()
+	        props.stopChangePropagation && event.stopPropagation()
 	    }
 	})
 
